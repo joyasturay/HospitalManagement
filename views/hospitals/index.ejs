@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediConnect - Hospital Bed Booking</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #1abc9c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --success: #2ecc71;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+            color: var(--dark);
+        }
+        
+        .navbar {
+            background-color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: white;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: white;
+        }
+        
+        .hero-carousel {
+            margin-top: 0;
+            position: relative;
+        }
+        
+        .carousel-item {
+            height: 500px;
+            overflow: hidden;
+        }
+        
+        .carousel-item img {
+            object-fit: cover;
+            height: 100%;
+            width: 100%;
+            filter: brightness(0.7);
+        }
+        
+        .carousel-caption {
+            bottom: 30%;
+            text-align: left;
+            max-width: 600px;
+            left: 10%;
+            right: auto;
+        }
+        
+        .carousel-caption h5 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .carousel-caption p {
+            font-size: 1.5rem;
+            font-weight: 500;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .stat-card {
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .stat-card .card-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--dark);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-card .card-text {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            margin: 0;
+        }
+        
+        .stat-card .card-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+            opacity: 0.2;
+            position: absolute;
+            right: 20px;
+            top: 20px;
+        }
+        
+        .stats-section {
+            margin-top: -70px;
+            position: relative;
+            z-index: 100;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .hospital-card {
+            border-radius: 15px;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-bottom: 2rem;
+            height: 100%;
+        }
+        
+        .hospital-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hospital-card .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .hospital-card .card-body {
+            padding: 1.5rem;
+        }
+        
+        .hospital-name {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.25rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        
+        .hospital-name:hover {
+            color: var(--secondary);
+        }
+        
+        .beds-badge {
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            display: inline-flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+        
+        .beds-badge i {
+            margin-right: 5px;
+        }
+        
+        .badge-green {
+            background-color: var(--success);
+            color: white;
+        }
+        
+        .badge-yellow {
+            background-color: var(--warning);
+            color: white;
+        }
+        
+        .badge-red {
+            background-color: var(--danger);
+            color: white;
+        }
+        
+        .badge-gray {
+            background-color: #6c757d;
+            color: white;
+        }
+        
+        .hospital-info {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .view-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+        
+        .view-btn:hover {
+            background-color: var(--primary);
+        }
+        
+        footer {
+            background-color: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            margin-top: 3rem;
+        }
+        
+        .hospitals-container {
+            padding-top: 2rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .carousel-item {
+                height: 300px;
+            }
+            
+            .carousel-caption {
+                bottom: 20%;
+            }
+            
+            .carousel-caption h5 {
+                font-size: 1.8rem;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem;
+            }
+            
+            .stats-section {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-hospital-user me-2"></i>
+                Critical
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                    <a class="nav-link active" href="/hospitals">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enquire">Enquire</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link addhospital" href="/hospitals/new">Add Hospital</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/help">Help</a>
+                </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Carousel -->
+    <div id="carouselExampleCaptions" class="carousel slide hero-carousel" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="https://lh3.googleusercontent.com/p/AF1QipPIBdkStkNkzZ-mOScBr68HO6TZPJfOAQy65Dng=s1360-w1360-h1020" class="d-block w-100" alt="Fortis Hospital">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Dharamshila Narayana Superspeciality Hospital, Delhi</h5>
+                    <p>Premier healthcare facility in New Delhi with state-of-the-art technology</p>
+                    <button class="btn btn-primary px-4 py-2">Book a Bed</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://lh3.googleusercontent.com/p/AF1QipOOE3FO4yP5Th80bikVNoZbSmhNUgZz8baujSsJ=s1360-w1360-h1020" class="d-block w-100" alt="MAX Hospital">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>MAX Hospital</h5>
+                    <p>Comprehensive healthcare services in New Delhi</p>
+                    <button class="btn btn-primary px-4 py-2">Book a Bed</button>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Apollo_Hospital_Indraprastha.jpg" class="d-block w-100" alt="Apollo Hospital">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>Apollo Hospital</h5>
+                    <p>Excellence in healthcare and medical innovation in New Delhi</p>
+                    <button class="btn btn-primary px-4 py-2">Book a Bed</button>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="container stats-section">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="stat-card bg-white">
+                    <i class="fas fa-hospital card-icon"></i>
+                    <h5 class="card-title">Total Hospitals</h5>
+                    <p class="card-text"><%= hospitals.length %></p>
+                    <p class="small text-muted mb-0">Partnered with our network</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="stat-card bg-white">
+                    <i class="fas fa-procedures card-icon"></i>
+                    <h5 class="card-title">Available Beds</h5>
+                    <p class="card-text"><%= totalAvailableBeds %></p>
+                    <p class="small text-muted mb-0">Ready for immediate booking</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="stat-card bg-white">
+                    <i class="fas fa-user-md card-icon"></i>
+                    <h5 class="card-title">Expert Doctors</h5>
+                    <p class="card-text"><%= totalDoctors %></p>
+                    <p class="small text-muted mb-0">Specialized healthcare professionals</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hospitals Section -->
+    <div class="container hospitals-container">
+        <h2 class="section-title">Find the Right Hospital</h2>
+        
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <% hospitals.forEach(function(hospital) { %>
+            <div class="col" id="hospital-<%= hospital._id %>">
+                <div class="hospital-card">
+                    <div class="position-relative">
+                        <img src="<%= hospital.image %>" class="card-img-top" alt="<%= hospital.name %>">
+                        <div class="position-absolute top-0 end-0 m-3">
+                            <span class="badge bg-primary rounded-pill px-3 py-2">
+                                <i class="fas fa-star me-1"></i> 4.8
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start">
+                            <a href="/hospitals/<%= hospital._id %>" class="hospital-name">
+                                <%= hospital.name %>
+                            </a>
+                            <span class="beds-badge <%= 
+                                hospital.availableBeds >= (hospital.totalBeds / 2) ? 'badge-green' :
+                                (hospital.availableBeds > 10 ? 'badge-yellow' :
+                                (hospital.availableBeds === 10 ? 'badge-red' : 'badge-gray'))
+                            %>">
+                                <i class="fas fa-bed"></i> <%= hospital.availableBeds %> Beds
+                            </span>
+                        </div>
+                        <div class="mt-3 d-flex align-items-center">
+                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                            <span class="text-muted">New Delhi, India</span>
+                        </div>
+                        <div class="mt-3">
+                            <div class="d-flex justify-content-between mt-4">
+                                <a href="/hospitals/<%= hospital._id %>" class="btn view-btn">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Critical</h4>
+                    <p>Your trusted partner for hospital bed booking and healthcare management.</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Quick Links</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="/" class="text-white">Home</a></li>
+                        <li><a href="/" class="text-white">Hospitals</a></li>
+                        <li><a href="/" class="text-white">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h4>Contact Us</h4>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> contact@critical.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +91 1234567890</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> New Delhi, India</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-light">
+            <div class="text-center">
+                <p class="mb-0">© 2025 Critical. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

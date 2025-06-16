@@ -1,0 +1,34 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h1>Doctors at <%= hospital.name %></h1>
+    <p>Location: <%= hospital.location %></p>
+    <h2>List of Doctors:</h2>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Specialization</th>
+            <th scope="col">Experience</th>
+            <th scope="col">Available Appointments</th>
+            <th scope="col">Update</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% doctors.forEach(doctor => { %>
+            <tr>
+              <td><a href="/doctors/<%= doctor._id %>"><%= doctor.name %></a></td>
+              <td><%= doctor.specialization %></td>
+              <td><%= doctor.experience %></td>
+              <td><%= doctor.availableAppointments.join(', ') %></td>
+              <td><a href="/hospitals/<%= hospital._id %>/doctors/<%= doctor._id %>/edit" class="btn btn-primary">Edit</a></td>
+              <form action="/hospitals/<%= hospital._id %>/doctors/<%= doctor._id %>/delete?_method=DELETE" method="POST">
+                <td><button  class="btn btn-danger">Delete</button></td>
+              </form>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+    <a href="/hospitals/<%= hospital._id %>/doctors/add" class="btn btn-outline-success mb-3 mt-3">Add New Doctor</a>
+</body>

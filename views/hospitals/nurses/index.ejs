@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h1>Nurses at <%= hospital.name %></h1>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Shift Timings</th>
+            <th scope="col">Contact Info</th>
+          </tr>
+        </thead>
+        <tbody>
+                <% nurses.forEach(nurse => { %>
+                    <tr>
+                        <td><%= nurse.name %></td>
+                        <td><%= nurse.shiftTimings %></td>
+                        <td><%= nurse.contactInfo %></td>
+                    </tr>
+                <% }) %>
+        </tbody>
+      </table>
+
+    <a href="/hospitals/<%= hospital._id %>">Back to Hospital</a>
+</body>

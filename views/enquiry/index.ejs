@@ -1,0 +1,71 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<style>
+     .legend-container {
+            margin-top: 2rem;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 0.5rem;
+            border: 1px solid #ddd;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        .legend-color {
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 0.25rem;
+            margin-right: 0.5rem;
+        }
+        .legend-green {
+            background-color: #28a745;
+        }
+        .legend-yellow {
+            background-color: #ffc107;
+        }
+        .legend-red {
+            background-color: #dc3545;
+        }
+</style>
+<body>
+    <h1 class="text-center">Enquire About Available Beds</h1>
+    <div class="row">
+    <div class="col-8 offset-2">
+    <form action="/enquire" method="post" novalidate class="needs-validation">
+        <div>
+        <label for="location" class="form-label">Location:</label>
+        <input type="text" id="location" name="location"  class="form-control" required>
+        </div>
+
+        <div>
+        <label for="specialty" class="form-label">Specialty Department:</label>
+        <input type="text" id="specialty" name="specialty"  class="form-control" required>
+         </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Search</button>
+    </form>
+    </div>
+    </div>
+
+    <div class="legend-container mb-3">
+        <h4>Status Legend</h4>
+        <div class="legend-item">
+            <div class="legend-color legend-green"></div>
+            <div>Green: More than half of the beds are available</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color legend-yellow"></div>
+            <div>Yellow: Less than half of the beds are available</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color legend-red"></div>
+            <div>Red: Less than 10 beds are available</div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+</body>
+

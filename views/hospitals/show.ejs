@@ -1,0 +1,621 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #ffffff;
+    min-height: 100vh;
+    color: #333333;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .hospital-header {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .hospital-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .hospital-header p {
+    font-size: 1.1rem;
+    color: #6c757d;
+    font-weight: 500;
+    margin: 0;
+  }
+
+  .hospital-header i {
+    margin-right: 8px;
+    color: #007bff;
+  }
+  .hospital-main-card {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+  }
+
+  .hospital-main-card img {
+    height: 300px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .hospital-details {
+    padding: 2rem;
+  }
+
+  .detail-item {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #007bff;
+  }
+
+  .detail-item strong {
+    color: #2c3e50;
+    font-weight: 600;
+  }
+
+  .emergency-phone {
+    background: #dc3545;
+    color: white !important;
+    border-radius: 6px;
+    padding: 12px 20px;
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+  }
+
+  .emergency-phone:hover {
+    background: #c82333;
+    color: white !important;
+    text-decoration: none;
+  }
+
+  .btn-edit {
+    background: #28a745;
+    border: 1px solid #28a745;
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s ease;
+  }
+
+  .btn-edit:hover {
+    background: #218838;
+    border-color: #1e7e34;
+    color: white;
+    text-decoration: none;
+  }
+
+  .actions-section {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid #007bff;
+    padding-bottom: 0.5rem;
+    display: inline-block;
+  }
+
+  .action-dropdown {
+    margin-bottom: 1rem;
+  }
+
+  .dropdown-btn {
+    background: #007bff;
+    border: 1px solid #007bff;
+    color: white;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 1rem;
+    width: 200px;
+    transition: all 0.2s ease;
+  }
+
+  .dropdown-btn:hover,
+  .dropdown-btn:focus {
+    background: #0056b3;
+    border-color: #0056b3;
+    color: white;
+  }
+
+  .dropdown-menu {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem 0;
+    margin-top: 2px;
+  }
+
+  .dropdown-item {
+    padding: 8px 16px;
+    color: #495057;
+    font-weight: 500;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.2s ease;
+  }
+
+  .dropdown-item:hover {
+    background: #f8f9fa;
+    color: #007bff;
+    text-decoration: none;
+  }
+
+  .dropdown-item i {
+    margin-right: 8px;
+    width: 16px;
+  }
+  .review-form {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-label {
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-control, .form-select {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background: #ffffff;
+  }
+
+  .form-control:focus, .form-select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: 0;
+  }
+
+  .btn-submit {
+    background: #007bff;
+    border: 1px solid #007bff;
+    color: white;
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-submit:hover {
+    background: #0056b3;
+    border-color: #0056b3;
+    color: white;
+  }
+
+  .reviews-section {
+    background: #ffffff;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .review-card {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #28a745;
+  }
+
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  .reviewer-name {
+    font-weight: 600;
+    color: #2c3e50;
+    font-size: 1.1rem;
+    margin: 0;
+  }
+
+  .rating-badge {
+    background: #28a745;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .review-comment {
+    color: #495057;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .btn-delete-review {
+    background: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+  }
+
+  .btn-delete-review:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    color: white;
+  }
+  .delete-hospital-section {
+    background: #fff5f5;
+    border: 1px solid #f5c6cb;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .delete-hospital-section h3 {
+    color: #721c24;
+    margin-bottom: 1rem;
+  }
+
+  .delete-hospital-section p {
+    color: #856404;
+    margin-bottom: 1.5rem;
+  }
+
+  .btn-delete-hospital {
+    background: #dc3545;
+    border: 1px solid #dc3545;
+    color: white;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-delete-hospital:hover {
+    background: #c82333;
+    border-color: #bd2130;
+    color: white;
+  }
+  .no-reviews {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #6c757d;
+  }
+
+  .no-reviews i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.3;
+  }
+
+  .no-reviews p {
+    font-size: 1.1rem;
+    margin: 0;
+  }
+  @media (max-width: 768px) {
+    .container {
+      padding: 10px;
+    }
+    
+    .hospital-header h1 {
+      font-size: 2rem;
+    }
+    
+    .hospital-header p {
+      font-size: 1rem;
+    }
+    
+    .hospital-details,
+    .actions-section,
+    .review-form,
+    .reviews-section {
+      padding: 1.5rem;
+    }
+    
+    .dropdown-btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+    
+    .review-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .hospital-header {
+      padding: 1.5rem;
+    }
+    
+    .hospital-details,
+    .actions-section,
+    .review-form,
+    .reviews-section {
+      padding: 1rem;
+    }
+    
+    .hospital-header h1 {
+      font-size: 1.75rem;
+    }
+  }
+
+  .btn:focus,
+  .dropdown-btn:focus,
+  .emergency-phone:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+  }
+
+  .was-validated .form-control:invalid,
+  .was-validated .form-select:invalid {
+    border-color: #dc3545;
+  }
+
+  .was-validated .form-control:valid,
+  .was-validated .form-select:valid {
+    border-color: #28a745;
+  }
+
+  .invalid-feedback {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+  }
+</style>
+
+<body>
+  <div class="container mt-4">
+    <div class="hospital-header">
+      <h1><%= hospital.name %></h1>
+      <p><i class="fa fa-map-marker-alt"></i> <%= hospital.location %></p>
+    </div>
+    <div class="hospital-main-card">
+      <img src="<%= hospital.image %>" alt="Hospital Image">
+      <div class="hospital-details">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="detail-item">
+              <p><strong>Total Beds:</strong> <%= hospital.totalBeds %></p>
+            </div>
+            <div class="detail-item">
+              <p><strong>Available Beds:</strong> <span style="color: #28a745; font-weight: 700;"><%= hospital.availableBeds %></span></p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="detail-item">
+              <p><strong>Departments:</strong> <%= hospital.departments.join(', ') %></p>
+            </div>
+            <div class="detail-item">
+              <p><strong>Emergency Facilities:</strong> <%= hospital.emergencyFacilities.join(', ') %></p>
+            </div>
+          </div>
+        </div>
+        <div class="detail-item text-center">
+          <p><strong><i class="fa fa-phone"></i> Emergency Contact:</strong></p>
+          <a href="tel:<%= hospital.phoneno %>" class="emergency-phone">
+            <i class="fa fa-phone-alt"></i> <%= hospital.phoneno %>
+          </a>
+        </div>
+        <div class="text-center mt-4">
+          <a href="/hospitals/<%= hospital._id %>/edit" class="btn-edit">
+            <i class="fa fa-edit"></i> Edit Hospital Details
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions-section">
+      <h3 class="section-title">Quick Actions</h3>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="action-dropdown">
+            <div class="dropdown">
+              <button class="btn dropdown-btn dropdown-toggle" type="button" id="addDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-plus-circle"></i> Add Resources
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="addDropdown">
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/doctors/add">
+                  <i class="fa fa-user-md"></i> Add Doctor
+                </a></li>
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/nurses/add">
+                  <i class="fa fa-user-nurse"></i> Add Nurse
+                </a></li>
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/beds/add">
+                  <i class="fa fa-bed"></i> Add Beds
+                </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="action-dropdown">
+            <div class="dropdown">
+              <button class="btn dropdown-btn dropdown-toggle" type="button" id="viewDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-eye"></i> View Resources
+              </button>
+              <ul class="dropdown-menu" aria-labelledby="viewDropdown">
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/patients">
+                  <i class="fa fa-users"></i> View Patients
+                </a></li>
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/nurses">
+                  <i class="fa fa-user-nurse"></i> View Nurses
+                </a></li>
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/doctors">
+                  <i class="fa fa-user-md"></i> View Doctors
+                </a></li>
+                <li><a class="dropdown-item" href="/hospitals/<%= hospital._id %>/beds">
+                  <i class="fa fa-bed"></i> View Beds
+                </a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-form">
+      <h2 class="section-title">Leave a Review</h2>
+      <form action="/hospitals/<%= hospital._id %>/reviews" method="POST" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="reviewerName" class="form-label">Your Name</label>
+          <input type="text" name="reviewerName" id="reviewerName" class="form-control" required>
+          <div class="invalid-feedback">
+            Please provide your name.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <select name="rating" id="rating" class="form-select" required>
+            <option value="" disabled selected>Select a rating</option>
+            <option value="1">1 - Poor</option>
+            <option value="2">2 - Fair</option>
+            <option value="3">3 - Good</option>
+            <option value="4">4 - Very Good</option>
+            <option value="5">5 - Excellent</option>
+          </select>
+          <div class="invalid-feedback">
+            Please select a rating.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="comment" class="form-label">Comment</label>
+          <textarea name="comment" id="comment" class="form-control" rows="4" required></textarea>
+          <div class="invalid-feedback">
+            Please enter a comment.
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">
+          <i class="fa fa-paper-plane"></i> Submit Review
+        </button>
+      </form>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section">
+      <h2 class="section-title">Patient Reviews</h2>
+      <% if (reviews.length === 0) { %>
+        <div class="no-reviews">
+          <i class="fa fa-comments"></i>
+          <p>No reviews yet. Be the first to review this hospital!</p>
+        </div>
+      <% } else { %>
+        <% reviews.forEach(review => { %>
+          <div class="review-card">
+            <div class="review-header">
+              <h5 class="reviewer-name"><%= review.reviewerName %></h5>
+              <span class="rating-badge">
+                <i class="fa fa-star"></i> <%= review.rating %>/5
+              </span>
+            </div>
+            <p class="review-comment"><%= review.comment %></p>
+            <form action="/hospitals/<%= hospital._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST" class="d-inline">
+              <button class="btn-delete-review delete-review-btn" type="submit">
+                <i class="fa fa-trash"></i> Delete
+              </button>
+            </form>
+          </div>
+        <% }); %>
+      <% } %>
+    </div>
+
+    <!-- Delete Hospital -->
+    <div class="delete-hospital-section">
+      <h3>Danger Zone</h3>
+      <p>Once you delete a hospital, there is no going back. Please be certain.</p>
+      <form action="/hospitals/<%= hospital._id %>?_method=DELETE" method="POST">
+        <button type="submit" class="btn-delete-hospital delete-hospital-btn">
+          <i class="fa fa-trash"></i> Delete Hospital
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict'
+      const forms = document.querySelectorAll('.needs-validation')
+      Array.from(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+
+    const deleteHospitalButton = document.querySelector('.delete-hospital-btn');
+    if (deleteHospitalButton) {
+      deleteHospitalButton.addEventListener('click', function(event) {
+        if (!confirm('Are you sure you want to delete this hospital? This action cannot be undone.')) {
+          event.preventDefault();
+        }
+      });
+    }
+
+    const deleteReviewButtons = document.querySelectorAll('.delete-review-btn');
+    deleteReviewButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+        if (!confirm('Are you sure you want to delete this review?')) {
+          event.preventDefault();
+        }
+      });
+    });
+  </script>
+</body>

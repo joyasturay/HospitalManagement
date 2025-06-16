@@ -1,0 +1,57 @@
+<!-- views/book.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Bed</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <h1 class="mb-4 text-center">Book a Hospital Bed</h1>
+                <form action="/book-bed/<%= hospitalId %>" method="POST">
+                    <div class="form-group">
+                        <label for="name">Patient Name</label>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="Enter the patient's full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Patient Age</label>
+                        <input type="number" class="form-control" id="age" name="age" placeholder="Enter the patient's age" required min="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactInfo">Contact Information</label>
+                        <input type="text" class="form-control" id="contactInfo" name="contactInfo" placeholder="Enter contact details (phone or email)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferred Booking Date</label>
+                        <%
+                            const today = new Date();
+                            const year = today.getFullYear();
+                            const month = String(today.getMonth() + 1).padStart(2, '0'); 
+                            const day = String(today.getDate()).padStart(2, '0');
+                            const minDate = `${year}-${month}-${day}`;
+                        %>
+                        <input type="date" class="form-control" id="date" name="date" required min="<%= minDate %>">
+                    </div>
+                    <div class="form-group">
+                        <label for="ward">Ward</label>
+                        <input type="text" class="form-control" id="ward" name="ward" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notes">Additional Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3" placeholder="Any special requirements or notes"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Submit Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

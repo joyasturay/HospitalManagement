@@ -1,0 +1,19 @@
+<% layout('layouts/boilerplate.ejs') %>
+ <h1>Generate Bill for <%= patient.name %></h1>
+    <form action="/hospitals/<%= hospital._id %>/patients/<%= patient._id %>/bill" method="POST">
+        <div>
+        <label for="services" class="form-label">Services:</label>
+        <input type="text" name="services[]" placeholder="Service Description" class="form-control" required>
+        <input type="number" name="servicesCost[]" placeholder="Cost" class="form-control" required>
+        </div>
+
+        <div>
+        <label for="roomCharge" class="form-label">Room Charge:</label>
+        <input type="number" name="roomCharge" class="form-control" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3 mb-3">Generate Bill</button>
+    </form>
+    <a href="/hospitals/<%= hospital._id %>/patients/<%= patient._id %>/bill/download" class="btn btn-primary">
+        Download Bill
+    </a>

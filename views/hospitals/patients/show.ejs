@@ -1,0 +1,43 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h1>Patient Details for <%= patient.name %></h1>
+    <table>
+        <tr>
+            <th>Name:</th>
+            <td><%= patient.name %></td>
+        </tr>
+        <tr>
+            <th>Age:</th>
+            <td><%= patient.age %></td>
+        </tr>
+        <tr>
+            <th>Contact Info:</th>
+            <td><%= patient.contactInfo %></td>
+        </tr>
+        <tr>
+            <th>Bed Number:</th>
+            <td><%= patient.bed ? patient.bed.bedNumber : 'N/A' %></td>
+        </tr>
+        <tr>
+            <th>Ward:</th>
+            <td><%= patient.bed ? patient.bed.ward : 'N/A' %></td>
+        </tr>
+        <tr>
+            <th>Admission Date:</th>
+            <td><%= patient.admissionDate.toDateString() %></td>
+        </tr>
+        <tr>
+            <th>Discharge Date:</th>
+            <td><%= patient.dischargeDate ? patient.dischargeDate.toDateString() : 'Still Admitted' %></td>
+        </tr>
+
+        <tr>
+    </table>
+    <a href="/hospitals/<%= hospital._id %>/patients/<%= patient._id %>/bill/download" class="btn btn-primary">
+        Download Bill
+    </a>
+    <hr>
+    <h1>Patient Declaration</h1>
+    <p><strong>Declaration:</strong> I declared that the patient  <%=patient.name %> is <b class="text-danger"><%= patient.isDead ? 'dead' : 'alive' %></b> and I am aware of the consequences.</p>
+    <a href="/hospitals/<%= hospital._id %>/patients">Back to Patient List</a>
+</body>

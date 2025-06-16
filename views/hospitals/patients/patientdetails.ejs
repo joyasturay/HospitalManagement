@@ -1,0 +1,15 @@
+<% layout('layouts/boilerplate.ejs') -%>
+
+<body>
+    <h1>Patient Details</h1>
+    <p><strong>Name:</strong> <%= patient.name %></p>
+    <p><strong>Age:</strong> <%= patient.age %></p>
+    <p><strong>Contact Info:</strong> <%= patient.contactInfo %></p>
+    <p><strong>Admitted At:</strong> <%= patient.admittedAt.name %></p>
+    <p><strong>Bed Number:</strong> <%= patient.bed.bedNumber %></p>
+    <p><strong>Admission Date:</strong> <%= patient.admissionDate.toDateString() %></p>
+    <p><strong>Discharge Date:</strong> <%= patient.dischargeDate ? patient.dischargeDate.toDateString() : 'N/A' %></p>
+    <p><strong>Prescription:</strong> <%= patient.prescription.join(', ') %></p>
+    <br>
+    <a href="/hospitals/<%= patient.admittedAt._id %>/patients">Back to Hospital Patients</a>
+</body>

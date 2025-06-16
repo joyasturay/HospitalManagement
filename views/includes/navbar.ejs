@@ -1,0 +1,78 @@
+<style>
+body {
+    background-color: white;
+    color: black;
+}
+
+.navbar {
+    background-color: white !important;
+    color: black;
+    border-radius: 10px !important;
+}
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.navbar.dark-mode {
+    background-color: #1a1a1a;
+}
+
+.btn-dark-mode {
+    color: #ffffff;
+}
+</style>
+
+<nav class="navbar navbar-expand-md   bg-light border-bottom" id="navbar">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/hospitals">Critical</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse bg-light" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/hospitals">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/enquire">Enquire</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link addhospital" href="/hospitals/new">Add Hospital</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/help">Help</a>
+                </li>
+            </ul>
+            <button class="btn btn-outline-dark mode-toggle" id="darkModeToggle"><i class="fa fa-moon"></i></button>
+        </div>
+    </div>
+</nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleButton = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const darkModePreference = localStorage.getItem('darkMode') || 'light';
+
+        if (darkModePreference === 'dark') {
+            body.classList.add('dark-mode');
+            toggleButton.innerHTML = '<i class="fa fa-sun"></i>';
+        }
+        toggleButton.addEventListener('click', function () {
+            if (body.classList.contains('dark-mode')) {
+                body.classList.remove('dark-mode');
+                toggleButton.innerHTML = '<i class="fa fa-moon"></i>';
+                localStorage.setItem('darkMode', 'light');
+            } else {
+                body.classList.add('dark-mode');
+                toggleButton.innerHTML = '<i class="fa fa-sun"></i>';
+                localStorage.setItem('darkMode', 'dark');
+            }
+        });
+    });
+</script>

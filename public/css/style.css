@@ -1,0 +1,153 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: "Plus Jakarta Sans", sans-serif !important; 
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    margin-top: auto; 
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+}
+
+.footer-logo img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.footer-logo h1 {
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.footer-links {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    margin-right: 20px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+.footer-social {
+    display: flex;
+}
+
+.footer-social a {
+    color: #fff;
+    margin-left: 10px;
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.footer-social a:hover {
+    color: #007bff;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.875rem;
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-logo {
+        margin-bottom: 20px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .footer-links li {
+        margin: 5px 0;
+    }
+
+    .footer-social {
+        margin-top: 20px;
+    }
+}
+
+.navbar{
+    height:3rem;
+}
+
+.card{
+    border:none !important;
+    margin:10px  !important;
+    padding: 10px; 
+    border-radius: 1rem !important;      
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+.card-img-top{
+    height: 15rem;
+    width:100% !important;
+    object-fit: cover !important;
+    border-radius: 1rem !important;
+}
+.card-body{
+    padding: 0 !important;
+}
+.card-text a{
+    text-decoration: none !important;
+    color: black !important;
+    font-weight: 600;
+}
+.dark-mode .card {
+    background-color: #333; 
+    color: #f1f1f1;         
+    box-shadow: 0px 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+.dark-mode .available-beds {
+    color: #f1f1f1; 
+}
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+.cardone{
+    border-radius: 1rem !important;
+    border:2px solid black !important;
+    padding: 1rem !important;
+}
+

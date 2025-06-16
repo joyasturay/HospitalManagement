@@ -1,0 +1,42 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h3 class="text-center">Edit Doctor</h3>
+    <div class="row">
+    <div class="col-8 offset-2"></div>
+    <form action="/hospitals/<%= hospitalId %>/doctors/<%= doctor._id %>?_method=PUT" method="POST" novalidate class="needs-validation">
+    <div>
+        <label for="name" class="form-label">Name:</label>
+        <input type="text" id="name" name="name" value="<%= doctor.name %>"  class="form-control" required>
+    </div>
+    <div>
+        <label for="specialization" class="form-label">Specialization:</label>
+        <input type="text" id="specialization" name="specialization" value="<%= doctor.specialization %>"  class="form-control" required>
+    </div>
+    <div>
+        <label for="experience" class="form-label">Experience (years):</label>
+        <input type="number" id="experience" name="experience" value="<%= doctor.experience %>"  class="form-control">
+    </div>
+    <div>
+        <label for="availableAppointments" class="form-label">Available Appointments (comma-separated dates):</label>
+        <input type="text" id="availableAppointments" name="availableAppointments" value="<%= doctor.availableAppointments.join(', ') %>"  class="form-control">
+    </div>
+    <div>
+        <label for="contactInfo" class="form-label">Contact Info:</label>
+        <input type="text" id="contactInfo" name="contactInfo" value="<%= doctor.contactInfo %>"  class="form-control">
+    </div>
+
+    <div>
+        <label for="image" class="form-label">Image:</label>
+        <input type="text" id="image" name="image" value="<%= doctor.image %>"  class="form-control">
+    </div>
+
+    <div>
+        <label for="fees" class="form-label">Fees:</label>
+        <input type="text" id="fees" name="fees" value="<%= doctor.fees %>"  class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3 mb-3">Update Doctor</button>
+</form>
+</div>
+</div>
+</body>

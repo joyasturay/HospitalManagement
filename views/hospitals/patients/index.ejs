@@ -1,0 +1,32 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h1>Patient List</h1>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Admit</th>
+            <th>Bill</th>
+        </tr>
+    <% patients.forEach(patient => { %>
+        <tr>
+            <td>
+                <a href="/hospitals/<%= hospital._id %>/patients/<%= patient._id %>">
+                    <%= patient.name %>
+                </a>
+            </td>
+            <td><%= patient.age %></td>
+            <td>
+                <form action="/hospitals/<%= hospital._id %>/discharge/<%= patient._id %>" method="POST">
+                    <button type="submit" class="btn btn-primary">Discharge</button>
+                </form>
+            </td>
+            <td>
+                <a href="/hospitals/<%= hospital._id %>/patients/<%= patient._id %>/bill">
+                    Bill
+                </a>
+            </td>
+        </tr>
+    <% }); %>
+    </table>
+</body>

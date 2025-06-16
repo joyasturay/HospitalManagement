@@ -1,0 +1,46 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h1><%= message %></h1>
+    <p>Your bed booking was successful. Here are the details:</p>
+    <table>
+        <tr>
+            <th>Patient Name:</th>
+            <td><%= patient.name %></td>
+        </tr>
+        <tr>
+            <th>Age:</th>
+            <td><%= patient.age %></td>
+        </tr>
+        <tr>
+            <th>Contact Info:</th>
+            <td><%= patient.contactInfo %></td>
+        </tr>
+        <tr>
+            <th>Bed Number:</th>
+            <td><%= bed.bedNumber %></td>
+        </tr>
+        <tr>
+            <th>Ward:</th>
+            <td><%= bed.ward %></td>
+        </tr>
+        <tr>
+            <th>Hospital Name:</th>
+            <td><%= hospital.name %></td>
+        </tr>
+        <tr>
+            <th>Hospital Location:</th>
+            <td><%= hospital.location %></td>
+        </tr>
+        <tr>
+            <th>Admission Date:</th>
+            <td><%= patient.admissionDate.toLocaleDateString() %></td>
+        </tr>
+        <tr>
+            <th>Booking Date:</th>
+            <td><%= bookingDate %></td>
+        </tr>
+    </table>
+    <a href="/hospitals">Go to Home</a>
+</body>
+
+

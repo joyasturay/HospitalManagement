@@ -1,0 +1,17 @@
+<% layout('layouts/boilerplate.ejs') -%>
+    <body>
+        <h1>Edit Bed</h1>
+        <form action="/hospitals/<%= hospital._id %>/beds/<%= bed._id %>/edit" method="POST">
+            <label for="bedNumber" class="form-label">Bed Number:</label>
+            <input type="number" id="bedNumber" name="bedNumber" value="<%= bed.bedNumber %>"  class="form-control" required>
+            <br>
+            <label for="ward" class="form-label">Ward:</label>
+            <input type="text" id="ward" name="ward" value="<%= bed.ward %>" class="form-control">
+            <br>
+            <label for="isOccupied" class="form-label">Is Occupied:</label>
+            <input type="checkbox" id="isOccupied" name="isOccupied" <%= bed.isOccupied ? 'checked' : '' %> >
+            <br>
+            <button type="submit" class="btn btn-primary mt-2">Update Bed</button>
+        </form>
+        <a href="/hospitals/<%= hospital._id %>/beds">Back to Beds List</a>
+    </body>

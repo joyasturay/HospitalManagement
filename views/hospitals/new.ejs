@@ -1,0 +1,78 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <h1 class="text-center">Add New Hospital</h1>
+
+    <div class="row">
+    <div class="col-8 offset-2">
+    <form id="addHospitalForm" action="/hospitals" method="POST" novalidate class="needs-validation">
+        <div>
+        <label for="name" class="form-label">Hospital Name:</label>
+        <input type="text" id="name" name="name" class="form-control" required>
+        <div class="valid-feedback">Title looks good.</div>    
+        <div class="invalid-feedback">Please enter a valid name.</div>
+        </div>
+
+        <div>
+        <label for="location" class="form-label">Location:</label>
+        <input type="text" id="location" name="location" class="form-control" required>
+        <div class="valid-feedback">Location looks good.</div>    
+        <div class="invalid-feedback">Please enter a valid location.</div>
+        </div>
+
+        <div>
+        <label for="totalBeds" class="form-label">Total Beds:</label>
+        <input type="number" id="totalBeds" name="totalBeds" class="form-control" required>
+        <div class="valid-feedback">Total beds look good.</div>    
+        <div class="invalid-feedback">Please enter a valid total beds.</div>
+        </div>
+
+        <div>
+        <label for="availableBeds" class="form-label">Available Beds:</label>
+        <input type="number" id="availableBeds" name="availableBeds" class="form-control" required>
+        <div class="valid-feedback">Available beds look good.</div>
+        <div class="invalid-feedback">Please enter a valid available beds.</div>
+        </div>
+
+        <div>
+        <label for="departments" class="form-label">Departments:</label>
+        <input type="text" id="departments" name="departments" class="form-control" required>
+        <div class="valid-feedback">Departments look good.</div>
+        <div class="invalid-feedback">Please enter valid departments.</div>
+        </div>
+
+        <div>
+        <label for="emergencyFacilities" class="form-label">Emergency Facilities:</label>
+        <input type="text" id="emergencyFacilities" name="emergencyFacilities" class="form-control" required>
+        <div class="valid-feedback">Emergency facilities look good.</div>
+        <div class="invalid-feedback">Please enter valid emergency facilities.</div>
+        </div>
+
+        <div>
+          <label for="phoneno" class="form-label">Phone Number:</label>
+          <input type="number" id="phoneno" name="phoneno" class="form-control" required>
+          <div class="valid-feedback">Phone number looks good.</div>
+          <div class="invalid-feedback">Please enter a valid phone number.</div>
+        </div>
+
+        <div>
+        <label for="image" class="form-label">Image URL:</label>
+        <input type="text" id="image" name="image" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-outline-success mb-3 mt-3">Add Hospital</button>
+    </form>
+    </div>
+</div>
+</body>
+
+<script>
+    document.getElementById('addHospitalForm').addEventListener('submit', function(e) {
+      const totalBeds = parseInt(document.getElementById('totalBeds').value);
+      const availableBeds = parseInt(document.getElementById('availableBeds').value);
+  
+      if (availableBeds > totalBeds) {
+        e.preventDefault();
+        alert('Available beds cannot be greater than total beds!');
+      }
+    });
+</script>

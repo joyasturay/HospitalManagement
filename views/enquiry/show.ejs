@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate.ejs') -%>
+    <style>
+        .status-green { color: #28a745; }
+        .status-yellow { color: #ffc107; }
+        .status-red { color: #dc3545; }
+        .status-gray { color: #6c757d; }
+        .hospital-card { margin-bottom: 1.5rem; }
+        .card-img-top { height: 180px; object-fit: cover; }
+        .card-footer { text-align: center; }
+    </style>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4 text-center">Hospital Search Results</h1>
+        <div class="row">
+            <% if (hospitals.length > 0) { %>
+                <% hospitals.forEach(hospital => { %>
+                    <div class="col-md-4">
+                        <div class="card hospital-card border-primary" style="width: 18rem; margin-bottom: 1.5rem;">
+                            <% if (hospital.image) { %>
+                                <img src="<%= hospital.image %>" class="card-img-top" alt="<%= hospital.name %>">
+                            <% } %>
+                            <div class="card-body">
+                                <p><strong>Location:</strong> <%= hospital.location %></p>
+                                <p><strong>Specialties:</strong> <%= hospital.departments.join(', ') %></p>
+                                <p><strong>Status:</strong> <span class="<%= 'status-' + hospital.status %>"><%= hospital.status.charAt(0).toUpperCase() + hospital.status.slice(1) %></span></p>
+                                <p><strong>Available Beds:</strong> <%= hospital.availableBeds %></p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="/hospitals/<%= hospital._id %>" class="btn btn-primary btn-block">View Details</a>
+                               <a href="/book/<%= hospital._id %>"> <button type="button" class="btn btn-outline-success book-btn">Book Bed</button></a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <div class="col-12">
+                    <div class="alert alert-warning" role="alert">
+                        No hospitals found matching the criteria.
+                    </div>
+                </div>
+            <% } %>
+        </div>
+    </div>
+</body>

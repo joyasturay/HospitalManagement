@@ -1,0 +1,34 @@
+<% layout('layouts/boilerplate.ejs') -%>
+<body>
+    <div class="container mt-4">
+        <h1><%= doctor.name %></h1>
+        <img src="<%= doctor.image %>" alt="<%= doctor.name %>" class="img-fluid mb-3" style="max-width: 300px; max-height: 300px;">
+        <p><strong>Specialization:</strong> <%= doctor.specialization %></p>
+        <p><strong>Experience:</strong> <%= doctor.experience %> years</p>
+        <p><strong> <i class="fa fa-phone"></i> Contact Info:</strong><a href="tel:<%= doctor.contactInfo %>" class="text-decoration-none"><%= doctor.contactInfo %></a></p>
+        <p><strong>Available Appointments:</strong></p>
+        <ul>
+            <% doctor.availableAppointments.forEach(appointment => { %>
+                <li><%= appointment.toDateString() %></li>
+            <% }) %>
+        </ul>
+        <p><strong>Hospital:</strong> <%= doctor.hospital.name %>,<%= doctor.hospital.location %></p>
+        <p><strong>Fees:</strong> <%= doctor.fees.toLocaleString("en-IN", { style: "currency", currency: "INR" }) %></p>
+
+        <h2>Reviews</h2>
+        <% if (doctor.reviews.length === 0) { %>
+            <p>No reviews yet.</p>
+        <% } else { %>
+            <ul>
+                <% doctor.reviews.forEach(review => { %>
+                    <li>
+                        <p><strong><%= review.reviewerName %></strong> - Rating: <%= review.rating %></p>
+                        <p><%= review.comment %></p>
+                        <p><small>Posted on: <%= review.createdAt.toDateString() %></small></p>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } %>
+    </div>
+
+</body>
