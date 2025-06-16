@@ -54,6 +54,3 @@ This project is a web application for managing hospital operations, including ho
 
 ## Contributing
 Contributions are welcome! Please feel free to open issues or submit pull requests.
-
-## License
-[Specify your license here, e.g., MIT, Apache 2.0, etc.]
