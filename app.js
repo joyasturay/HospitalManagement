@@ -8,6 +8,13 @@ const ejsMate = require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync');
 const ExpressError= require('./utils/ExpressError');
 const hospitals=require('./routes/Hospitals');
+const { createClient } = require('@supabase/supabase-js');
+const session = require('express-session');
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseKey);
+
 
 // Models
 const Hospital = require('./models/Hospital');
@@ -37,11 +44,64 @@ app.use(express.json());
 app.use(methodOverride('_method'));
 app.use("/hospitals", hospitals);
 app.engine('ejs', ejsMate);
-
+const sessionOptions = {
+    secret: process.env.SESSION_SECRET, 
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7, 
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }
+};
+app.use(session(sessionOptions));
 
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
+app.get("/signupPage", (req, res) => {
+    res.render('signup');
+});
+app.post('/signup', async (req, res) => {
+  const { email, password } = req.body;
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.log(error);
+    return res.send('Error signing up.');
+  }
+
+  res.redirect('/loginPage');
+});
+
+app.get("/loginPage",(req,res)=>{
+    res.render('login');
+})
+app.post('/login', async (req, res) => {
+  const { email, password } = req.body;
+
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    console.log(error);
+    return res.send('Login failed');
+  }
+  req.session.user = data.user;
+  res.redirect('/hospitals');
+});
+app.get('/logout', async (req, res) => {
+  await supabase.auth.signOut();
+  req.session.destroy(); 
+  res.redirect('/loginPage');
+});
+
 
 app.get('/profile', (req, res) => {
     res.render('dev');
@@ -140,7 +200,7 @@ app.post('/book-bed/:hospitalId', async (req, res) => {
 
   
 
-  /*app.get('/patients/:patientId', async (req, res) => {
+  app.get('/patients/:patientId', async (req, res) => {
     const { patientId } = req.params;
 
     try {
@@ -185,7 +245,7 @@ app.post('/doctors/:id/reviews', async (req, res) => {
     } catch (error) {
         res.status(500).send('Server error');
     }
-});*/
+});
 
 app.all('*', (req, res) => {
     throw(new ExpressError("Page Not Found", 404));

@@ -43,7 +43,7 @@ router.get('/', async (req, res) => {
             hospitals,
             totalHospitals: hospitals.length,
             totalAvailableBeds: hospitals.reduce((total, hospital) => total + hospital.availableBeds, 0),
-            totalDoctors   
+            totalDoctors
         });
     } catch (err) {
         console.error('Error fetching hospitals:', err);
